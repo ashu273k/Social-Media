@@ -1,5 +1,6 @@
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
+import { generateToken } from '../config/token.js';
 
 export const signUp = async (req, res) => {
     try {
@@ -35,9 +36,15 @@ export const signUp = async (req, res) => {
         console.log('Hashed password: ',hashedPassword);
         console.log('Hash length:', hashedPassword.length)
         console.log('=== END SIGNUP DEBUG ===')
-    
+
         const newUser = await User.create({name, userName, email, password: hashedPassword});
-        res.status(201).json(newUser);
+
+        // Token generation done here
+        const token = await generateToken(newUser._id)
+        console.log('Generated Token:', token)
+        
+        
+        res.status(201).json({token, user: newUser});
 
     } catch (error) {
         console.error('SignUp Error:', error)
@@ -76,7 +83,11 @@ export const signIn = async (req, res) => {
         if (!isPasswordCorrect) {
             return res.status(400).json({message: "Invalid password"})
         }
-        return res.status(200).json(existingUser)
+        const token = await generateToken(existingUser._id)
+        console.log('Generated Token:', token)
+
+        res.status(200).json({token, user: existingUser});
+
     } catch (error) {
         console.error('SignIn Error:', error)
         return res.status(500).json({message: "Internal Server Error"})
