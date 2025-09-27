@@ -43,6 +43,12 @@ export const signUp = async (req, res) => {
         const token = await generateToken(newUser._id)
         console.log('Generated Token:', token)
         
+        // Set token in HTTP-only cookie so that we can prevent it from CSRF (Cross-Site Request Forgery) attacks
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'strict', // Adjust based on your client-server setup
+            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        })
         
         res.status(201).json({token, user: newUser});
 
@@ -84,6 +90,13 @@ export const signIn = async (req, res) => {
             return res.status(400).json({message: "Invalid password"})
         }
         const token = await generateToken(existingUser._id)
+
+        // Set token in HTTP-only cookie so that we can prevent it from CSRF (Cross-Site Request Forgery) attacks
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: 'strict', // Adjust based on your client-server setup
+            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        })
         console.log('Generated Token:', token)
 
         res.status(200).json({token, user: existingUser});
