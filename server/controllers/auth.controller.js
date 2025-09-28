@@ -50,7 +50,7 @@ export const signUp = async (req, res) => {
             maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
         })
         
-        res.status(201).json({token, user: newUser});
+        res.status(201).json({message: "SignUp successful", token, user: newUser});
 
     } catch (error) {
         console.error('SignUp Error:', error)
