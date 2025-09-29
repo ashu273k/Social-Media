@@ -1,4 +1,3 @@
-import './App.css'
 import Landing from './pages/Landing.jsx'
 import { Routes, Route } from 'react-router-dom'
 import SignIn from './pages/SignIn.jsx'
