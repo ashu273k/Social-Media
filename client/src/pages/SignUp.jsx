@@ -2,21 +2,27 @@ import React, { useState } from "react";
 import logo1 from "../assets/socialLogo.png";
 import logo2 from "../assets/logo2.png";
 import { Link } from "react-router-dom";
-import { signUpUser } from "../apicalls/authCalls";
+import { signUpUser } from "../../apicalls/authCalls.js";
+import {setUserData} from "../redux/UserSlice.js"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     try {
       const data = await signUpUser({ name, userName, email, password });
       console.log("Signup Success:", data);
+      dispatch(setUserData(data))
+      navigate('/home')
     } catch (error) {
       console.error("Signup Error:", error);
-
       // Optionally, show an error message to the user here
     }
   };
