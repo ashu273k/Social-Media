@@ -11,9 +11,7 @@ function App() {
   useCurrentUser()
   const {userData} = useSelector(state => state.user)
   
-  if (!userData) {
-    return null; // or a loading spinner, or some placeholder
-  }
+ 
 
   return (
     <>
