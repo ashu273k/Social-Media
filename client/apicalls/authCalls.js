@@ -41,7 +41,19 @@ export const signInUser = async ({ userName, password }) => {
 
 export const getCurrentUser = async () => {
   try {
-    const response = await api.get("/api/user/current");
+    const response = await api.get("/api/user/current", {getCredientials: true});
+    
+    return response.data; // return just the data
+  } catch (error) {
+    // standardize error handling
+    throw error.response?.data?.message || "Something went wrong";
+  }
+};
+
+// Get user profile data 
+export const getProfile = async (userName) => {
+  try {
+    const response = await api.get(`/api/user/getprofile/${userName}`);
     
     return response.data; // return just the data
   } catch (error) {

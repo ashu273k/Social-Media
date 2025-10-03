@@ -5,12 +5,16 @@ const userSlice = createSlice({
 
   initialState: {
     userData: null,
+    profileData: null
   },
 
   reducers: {
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
+    setProfileData: (state, action) => {
+      state.profileData = action.payload
+    }
   },
 
   // clearUserData: (state) => {
@@ -18,5 +22,5 @@ const userSlice = createSlice({
   // }
 });
 
-export const { setUserData } = userSlice.actions;
+export const { setUserData, setProfileData } = userSlice.actions;
 export default userSlice.reducer;
