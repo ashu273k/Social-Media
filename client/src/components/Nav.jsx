@@ -32,7 +32,7 @@ function NavDesign() {
 
       {/* Avatar */}
       <div className="w-[40px] h-[40px] rounded-full overflow-hidden border border-neutral-300 cursor-pointer">
-        <img onClick={() => navigate(`/profile/${userData.userName}`)} alt="Profile" className="w-full h-full object-cover" />
+        <img src={userData?.profileImage} onClick={() => navigate(`/profile/${userData.userName}`)} alt="Profile" className="w-full h-full object-cover" />
       </div>
     </div>
   );

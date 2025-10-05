@@ -1,27 +1,52 @@
-
 import { useRef } from "react";
 import { useState } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { editProfile } from "../../apicalls/authCalls.js";
+import { useDispatch } from "react-redux";
+import { setProfileData, setUserData } from "../redux/UserSlice.js";
+
 
 
 function EditProfile() {
+  const { profileData } = useSelector((state) => state.user);
+  const [userName, setUserName] = useState(profileData.userName);
+  const [name, setName] = useState(profileData.name);
+  const [bio, setBio] = useState(profileData.bio);
+  const [profileImage, setProfileImage] = useState("");
+  const [serverProfileImage, setServerProfileImage] = useState(null);
 
-    const [profileImage , setProfileImage]=useState('')
-    const imageInput = useRef()
-    console.log(imageInput)
+  const imageInput = useRef();
+  const dispatch = useDispatch();
 
-    const {profileData} =useSelector( (state) => state.user)
-    const [userName, setUserName] = useState(profileData.userName)
-    const [name, setName] = useState(profileData.name)
-    const [bio, setBio] = useState(profileData.bio)
+  function handleImage(e) {
+    const file = e.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    console.log(imageUrl);
+    setProfileImage(imageUrl);
+    setServerProfileImage(file);
+  }
 
-    function handleImage(e) {
-        const file = e.target.files[0]
-        const imageUrl = URL.createObjectURL(file)
-        console.log(imageUrl)
-        setProfileImage(imageUrl)
+  async function handleEditProfile() {
+    try {
+      const formData = new FormData();
+      formData.append("userName", userName);
+      formData.append("name", name);
+      formData.append("bio", bio);
+      if (profileImage) {
+        formData.append("profileImage", serverProfileImage);
+      }
+
+      // Call the API to update the profile
+      const result = await editProfile(formData);
+      console.log("Profile updated successfully:", result);
+      dispatch(setUserData(result))
+      dispatch(setProfileData(result))
+      console.log("Profile updated in Redux store");
+    } catch (error) {
+      console.log(`Cannot update Profile ${error}`);
     }
+  }
 
   return (
     <div
@@ -39,7 +64,6 @@ function EditProfile() {
           <h1 className="text-2xl font-bold text-gray-900">Edit Profile</h1>
         </div>
 
-   
         {/* {message && (
           <div className="p-3 bg-green-100 text-green-700 rounded-md text-sm">
             {message}
@@ -63,7 +87,6 @@ function EditProfile() {
               ref={imageInput}
               onChange={handleImage}
               hidden
-           
             />
             {profileImage ? (
               <img
@@ -80,10 +103,7 @@ function EditProfile() {
               Change
             </div>
           </div>
-          <button
-
-            className="text-blue-600 text-sm font-semibold hover:underline"
-          >
+          <button className="text-blue-600 text-sm font-semibold hover:underline">
             Change Profile Picture
           </button>
         </div>
@@ -108,16 +128,14 @@ function EditProfile() {
             type="text"
             placeholder="Bio"
             value={bio}
-            onChange={(e) => setBio(e.target.value)}    
-         
+            onChange={(e) => setBio(e.target.value)}
             className="w-full h-[50px] bg-gray-100 border border-gray-300 rounded-lg px-4 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
-         
         </div>
 
         {/* Save Button */}
-        <button 
-         
+        <button
+          onClick={() => handleEditProfile()}
           className="w-full h-[50px] bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-lg shadow-md hover:opacity-90 transition"
         >
           Save Profile
