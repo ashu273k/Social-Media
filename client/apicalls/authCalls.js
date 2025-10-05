@@ -62,3 +62,14 @@ export const getProfile = async (userName) => {
   }
 };
  
+export const editProfile = async (formData) => {
+  try {
+    const response = await api.post(`/api/user/editProfile`, formData, { withCredentials: true});
+    
+    return response.data; // return just the data
+  } catch (error) {
+    // standardize error handling
+    throw error.response?.data?.message || "Something went wrong";
+  }
+};
+ 
