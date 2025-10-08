@@ -4,6 +4,7 @@ import connectDB from './config/db.js'
 dotenv.config();
 import authRouter from './routes/auth.route.js'
 import userRouter from "./routes/user.route.js";
+import postRouter from "./routes/post.route.js"
 // We need to import cookie-parser to parse cookies from incoming requests why? Because we are storing JWT token in cookies
 // This will help us to read the token from cookies for protected routes
 import cookieParser from 'cookie-parser'
@@ -14,6 +15,7 @@ const app = express()
 const PORT = process.env.PORT || 8000
 // We are using express.json() middleware to parse JSON request bodies
 // It allows us to access the data sent in the request body as req.body
+app.use(express.urlencoded())
 app.use(express.json())
 app.use(
     cors({
@@ -30,6 +32,7 @@ app.use(cookieParser()) // Use cookie-parser middleware Why? To parse cookies fr
 app.use('/api/auth', authRouter)
 // User routes
 app.use('/api/user', userRouter)
+app.use('/api/post', postRouter)
 
 connectDB();
 
