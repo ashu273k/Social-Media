@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import Profile from './pages/Profile.jsx'
 import EditProfile from './pages/EditProfile.jsx'
+import Upload from './pages/Upload.jsx'
 
 function App() {
   useCurrentUser()
@@ -24,7 +25,9 @@ function App() {
         <Route path='/home' element={userData ? <Home /> : <Navigate to="/signin" />}/>
         <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to="/home" />}/>
         <Route path='/editprofile/' element={userData ? <EditProfile /> : <Navigate to="/home" />}/>
+        <Route path='/upload' element={<Upload />}/>
       </Routes>
+
     </>
   )
 }
