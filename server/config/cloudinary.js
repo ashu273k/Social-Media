@@ -8,7 +8,9 @@ const uploadFile = async (file) => {
       api_secret: process.env.CLOUD_API_SECRET
     });
 
-    const result = await cloudinary.uploader.upload(file)
+    const result = await cloudinary.uploader.upload(file, {
+      resource_type: 'auto'
+    })
     return result.secure_url
 
   } catch (error) {
