@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React from "react";
 import LeftHome from "../components/LeftHome";
-import Feed from "../components/Feed";
+import Feed from "../components/Feed.jsx";
 import RightHome from "../components/RightHome";
 
 function Home() {
