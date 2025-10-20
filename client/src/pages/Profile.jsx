@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"; // Assuming user data is in Redux sto
 import { useEffect } from "react";
 import { getProfile } from "../../apicalls/authCalls.js";
 import { useDispatch } from "react-redux";
-import { setProfileData } from "../redux/UserSlice.js"
+import { setProfileData } from "../redux/userSlice.js"
 import { useNavigate } from "react-router-dom";
 
 function Profile() {

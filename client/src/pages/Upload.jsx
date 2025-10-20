@@ -6,7 +6,7 @@ import { ClipLoader } from "react-spinners";
 import logo2 from "../assets/logo2.png";
 import { createPost } from "../../apicalls/authCalls.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setPostData } from "../redux/postSlice.js";
+import { setPostData } from "../redux/postSlice";
 
 function Upload() {
   const {postData} =   useSelector(state=>state.post)

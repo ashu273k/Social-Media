@@ -4,7 +4,7 @@ import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { editProfile } from "../../apicalls/authCalls.js";
 import { useDispatch } from "react-redux";
-import { setProfileData, setUserData } from "../redux/UserSlice.js";
+import { setProfileData, setUserData } from "../redux/userSlice.js";
 
 
 

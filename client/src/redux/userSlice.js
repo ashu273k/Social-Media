@@ -1,26 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit'
 
 const userSlice = createSlice({
-  name: "user",
+      name : 'user',
 
-  initialState: {
-    userData: null,
-    profileData: null
-  },
+      initialState:{
+        userData : null,
+        profileData:null,
+      },
 
-  reducers: {
-    setUserData: (state, action) => {
-      state.userData = action.payload;
-    },
-    setProfileData: (state, action) => {
-      state.profileData = action.payload
-    }
-  },
 
-  // clearUserData: (state) => {
-  //     state.userData = null
-  // }
-});
+      reducers:{
+        setUserData : (state , action)=>{
+            state.userData= action.payload
+        } ,
 
-export const { setUserData, setProfileData } = userSlice.actions;
-export default userSlice.reducer;
+        setProfileData:(state , action)=>{
+          state.profileData= action.payload
+        }
+
+        // clearUserData : (state , action)=>{
+        //     state.userData = null
+        // }
+      }
+})
+
+export const {setUserData , setProfileData} = userSlice.actions
+export default userSlice.reducer

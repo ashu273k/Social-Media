@@ -3,7 +3,7 @@ import logo1 from "../assets/socialLogo.png";
 import logo2 from "../assets/logo2.png";
 import { Link } from "react-router-dom";
 import { signUpUser } from "../../apicalls/authCalls.js";
-import {setUserData} from "../redux/UserSlice.js"
+import {setUserData} from "../redux/userSlice.js"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

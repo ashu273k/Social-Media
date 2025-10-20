@@ -44,7 +44,7 @@ export const uploadPost = async (req, res) => {
       author: req.userId,
     });
     // we need to show posts for a individual user
-    const user = await User.findById(req.userId).populate("post");
+    const user = await User.findById(req.userId).populate("posts");
     user.posts.push(post._id);
     await user.save();
 
